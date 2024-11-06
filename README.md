@@ -1,2 +1,4 @@
 # matematica-discreta
-Monografía
+
+1. Monografía
+2. Power point
