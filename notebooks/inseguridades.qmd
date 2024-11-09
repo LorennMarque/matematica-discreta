@@ -1,0 +1,9 @@
+---
+title: "Trade"
+format: html
+editor: visual
+---
+
+```{r}
+
+```
