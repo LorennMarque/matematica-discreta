@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.32">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -63,10 +63,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="matematica_discreta_tp_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="matematica_discreta_tp_files/libs/quarto-html/anchor.min.js"></script>
 <link href="matematica_discreta_tp_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="matematica_discreta_tp_files/libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="matematica_discreta_tp_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="matematica_discreta_tp_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="matematica_discreta_tp_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="matematica_discreta_tp_files/libs/bootstrap/bootstrap-5bdc1ec511977dd36301403cf8f4f68d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="matematica_discreta_tp_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -83,187 +83,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Required Libraries</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> pdist, squareform</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> mcolors</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-2" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/clean_iflow_data.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-3" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Unnamed: 0</th>
-<th data-quarto-table-cell-role="th">id_orden</th>
-<th data-quarto-table-cell-role="th">cliente</th>
-<th data-quarto-table-cell-role="th">localidad</th>
-<th data-quarto-table-cell-role="th">direccion</th>
-<th data-quarto-table-cell-role="th">latitud</th>
-<th data-quarto-table-cell-role="th">longitud</th>
-<th data-quarto-table-cell-role="th">bultos</th>
-<th data-quarto-table-cell-role="th">unidades</th>
-<th data-quarto-table-cell-role="th">peso</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">visita_planificada</th>
-<th data-quarto-table-cell-role="th">inicio_visita</th>
-<th data-quarto-table-cell-role="th">fin_visita</th>
-<th data-quarto-table-cell-role="th">dia</th>
-<th data-quarto-table-cell-role="th">mes</th>
-<th data-quarto-table-cell-role="th">hora</th>
-<th data-quarto-table-cell-role="th">diferencia_minutos</th>
-<th data-quarto-table-cell-role="th">dia_str</th>
-<th data-quarto-table-cell-role="th">duracion_visita_min</th>
-<th data-quarto-table-cell-role="th">duracion_visita_horas</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>74956</td>
-<td>70</td>
-<td>CAPITAL</td>
-<td>VIDAL 2044</td>
-<td>-34.564779</td>
-<td>-58.459956</td>
-<td>2.516667</td>
-<td>30</td>
-<td>24.910</td>
-<td>...</td>
-<td>2024-05-23 12:06:00</td>
-<td>2024-05-23 14:13:53</td>
-<td>2024-05-23 14:14:53</td>
-<td>23.0</td>
-<td>5.0</td>
-<td>14.0</td>
-<td>308.883333</td>
-<td>jueves</td>
-<td>1.000000</td>
-<td>0.016667</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>74956</td>
-<td>70</td>
-<td>CAPITAL</td>
-<td>VIDAL 2044</td>
-<td>-34.564779</td>
-<td>-58.459956</td>
-<td>2.866667</td>
-<td>38</td>
-<td>26.260</td>
-<td>...</td>
-<td>2024-05-10 12:05:00</td>
-<td>2024-05-10 16:43:00</td>
-<td>2024-05-10 16:43:00</td>
-<td>10.0</td>
-<td>5.0</td>
-<td>16.0</td>
-<td>458.000000</td>
-<td>viernes</td>
-<td>0.000000</td>
-<td>0.000000</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>74956</td>
-<td>70</td>
-<td>CAPITAL</td>
-<td>VIDAL 2044</td>
-<td>-34.564779</td>
-<td>-58.459956</td>
-<td>2.400000</td>
-<td>32</td>
-<td>24.888</td>
-<td>...</td>
-<td>2024-05-30 12:03:00</td>
-<td>2024-05-30 09:41:36</td>
-<td>2024-05-30 09:50:08</td>
-<td>30.0</td>
-<td>5.0</td>
-<td>9.0</td>
-<td>47.133333</td>
-<td>jueves</td>
-<td>8.533333</td>
-<td>0.142222</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>74956</td>
-<td>70</td>
-<td>CAPITAL</td>
-<td>VIDAL 2044</td>
-<td>-34.564779</td>
-<td>-58.459956</td>
-<td>1.800000</td>
-<td>28</td>
-<td>14.040</td>
-<td>...</td>
-<td>2024-06-13 12:14:00</td>
-<td>2024-06-13 13:32:55</td>
-<td>2024-06-13 13:39:55</td>
-<td>13.0</td>
-<td>6.0</td>
-<td>13.0</td>
-<td>265.916667</td>
-<td>jueves</td>
-<td>7.000000</td>
-<td>0.116667</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>74956</td>
-<td>70</td>
-<td>CAPITAL</td>
-<td>VIDAL 2044</td>
-<td>-34.564779</td>
-<td>-58.459956</td>
-<td>2.116667</td>
-<td>31</td>
-<td>14.377</td>
-<td>...</td>
-<td>2024-06-27 12:27:00</td>
-<td>2024-06-27 15:36:00</td>
-<td>2024-06-27 15:36:00</td>
-<td>27.0</td>
-<td>6.0</td>
-<td>15.0</td>
-<td>369.000000</td>
-<td>jueves</td>
-<td>0.000000</td>
-<td>0.000000</td>
-</tr>
-</tbody>
-</table>
-
-<p>5 rows × 22 columns</p>
-</div>
-</div>
-</div>
-<div id="cell-4" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'fecha'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'fin_visita'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>, errors<span class="op">=</span><span class="st">'coerce'</span>).dt.date</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<center>
+<h1>
+Documento de matemática discreta
+</h1>
+<h3 class="anchored">
+Lorenzo Marquesini
+</h3>
+<h3 class="anchored">
+2024-11-13
+</h3>
+</center>
+<style>
+  body {
+    margin: 75px; /* Cambia el valor para ajustar el margen */
+  }
+  .container {
+    margin: 75px;
+  }
+</style>
+<section id="resumen" class="level2">
+<h2 class="anchored" data-anchor-id="resumen">Resumen</h2>
+<p>En este trabajo se analiza la logística de entregas de la empresa Iflow en la ciudad de Buenos Aires, utilizando técnicas de coloración de grafos para identificar rutas potenciales de repartidores. A partir de datos geográficos y temporales de las entregas realizadas entre mayo y agosto de 2024 para dos clientes específicos, se busca optimizar y visualizar las rutas de entrega mediante algoritmos de teoría de grafos y representación gráfica mejorada.</p>
+</section>
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>La logística de distribución es un factor crítico en la eficiencia operacional de empresas de entrega. Con el crecimiento de las ciudades y la demanda de entregas rápidas, es esencial optimizar las rutas de los repartidores para minimizar tiempos y costos. Este estudio se enfoca en las entregas realizadas por Iflow, una empresa de logística, a supermercados en Buenos Aires, utilizando datos reales de entregas diarias de dos clientes (identificados como cliente 20 y 70) durante un período de cuatro meses en 2024.</p>
+<p>El objetivo principal es aplicar técnicas de coloración de grafos para identificar y visualizar posibles rutas de repartidores, aprovechando información geográfica y temporal. Esto permitirá proponer mejoras en la asignación de rutas y recursos, contribuyendo a una logística más eficiente.</p>
+<div id="cell-3" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scientific and Mathematical Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> pdist, squareform</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualization Libraries</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> mcolors</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Network Analysis</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Utility Libraries</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Carga de datos    </span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/clean_iflow_data.csv'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Formateamos correctamente los datos</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'fecha'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'fin_visita'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>, errors<span class="op">=</span><span class="st">'coerce'</span>).dt.date</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Muestra de los datos</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -423,11 +296,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Para simplificar el análisis nos limitamos al estudio de los datos del día 26-05-2024. Despues de filtrar la fecha seleccionamos las siguientes variables de interes:</p>
+<ul>
+<li><strong>cliente</strong>: Toma los valores “20” o “70” e indica de cual cliente fue entregada la mercadería.</li>
+<li><strong>fin_visita</strong>: Indica la fecha y hora al momento de finalizar la entrega.</li>
+<li>Cordenadas: Columnas <strong>latitud</strong> y <strong>longitud</strong>.</li>
+</ul>
 <div id="cell-5" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_selected_date <span class="op">=</span>  df[df[<span class="st">'fecha'</span>] <span class="op">==</span> dt.date(<span class="dv">2024</span>, <span class="dv">5</span>, <span class="dv">23</span>)]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df_selected_date[[<span class="st">'cliente'</span>, <span class="st">'latitud'</span>, <span class="st">'longitud'</span>, <span class="st">'fin_visita'</span>]].sort_values(by<span class="op">=</span><span class="st">'fin_visita'</span>).reset_index()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_geo[<span class="st">'order'</span>] <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="bu">len</span>(df_geo) <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_geo.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selección de la fecha objetivo</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_selected_date <span class="op">=</span>  df[df[<span class="st">'fecha'</span>] <span class="op">==</span> dt.date(<span class="dv">2024</span>, <span class="dv">5</span>, <span class="dv">23</span>)]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos unicamente las variables de interes</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df_geo <span class="op">=</span> df_selected_date[[<span class="st">'cliente'</span>, <span class="st">'latitud'</span>, <span class="st">'longitud'</span>, <span class="st">'fin_visita'</span>]].sort_values(by<span class="op">=</span><span class="st">'fin_visita'</span>).reset_index()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos una nueva variable "order" que indica el nro de entrega en orden cronológico. </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_geo[<span class="st">'order'</span>] <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="bu">len</span>(df_geo) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df_geo.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
@@ -496,19 +380,135 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df_geo.head(<span class="dv">20</span>).iterrows():</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    plt.scatter(row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>], s<span class="op">=</span><span class="dv">140</span>, c<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    plt.text(row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>], <span class="bu">str</span>(row[<span class="st">'order'</span>]), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitud'</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitud'</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Puntos de entrega'</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df_geo.head(<span class="dv">20</span>)) <span class="op">-</span> <span class="dv">1</span>):</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    plt.plot([df_geo.head(<span class="dv">20</span>).iloc[i][<span class="st">'longitud'</span>], df_geo.head(<span class="dv">20</span>).iloc[i<span class="op">+</span><span class="dv">1</span>][<span class="st">'longitud'</span>]], [df_geo.head(<span class="dv">20</span>).iloc[i][<span class="st">'latitud'</span>], df_geo.head(<span class="dv">20</span>).iloc[i<span class="op">+</span><span class="dv">1</span>][<span class="st">'latitud'</span>]], color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'../images/grafico1.png'</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="teoría" class="level2">
+<h2 class="anchored" data-anchor-id="teoría">Teoría</h2>
+<div id="cell-7" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df_geo.head(<span class="dv">20</span>).iterrows():</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    plt.scatter(row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>], s<span class="op">=</span><span class="dv">140</span>, c<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    plt.text(row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>], <span class="bu">str</span>(row[<span class="st">'order'</span>]), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitud'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitud'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Puntos de entrega'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df_geo.head(<span class="dv">20</span>)) <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    plt.plot([df_geo.head(<span class="dv">20</span>).iloc[i][<span class="st">'longitud'</span>], df_geo.head(<span class="dv">20</span>).iloc[i<span class="op">+</span><span class="dv">1</span>][<span class="st">'longitud'</span>]], [df_geo.head(<span class="dv">20</span>).iloc[i][<span class="st">'latitud'</span>], df_geo.head(<span class="dv">20</span>).iloc[i<span class="op">+</span><span class="dv">1</span>][<span class="st">'latitud'</span>]], color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'../images/grafico1.png'</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matematica_discreta_tp_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-8" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> estimate_time_distance(lat1, lon1, lat2, lon2, avg_speed_kmh<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert latitude/longitude to radians</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    lat1, lon1 <span class="op">=</span> np.radians(lat1), np.radians(lon1)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    lat2, lon2 <span class="op">=</span> np.radians(lat2), np.radians(lon2)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Haversine formula</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    dlat <span class="op">=</span> lat2 <span class="op">-</span> lat1</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    dlon <span class="op">=</span> lon2 <span class="op">-</span> lon1</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> np.sin(dlat<span class="op">/</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> np.cos(lat1) <span class="op">*</span> np.cos(lat2) <span class="op">*</span> np.sin(dlon<span class="op">/</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.arcsin(np.sqrt(a))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Earth's radius in kilometers</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="dv">6371</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate distance in kilometers</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    distance <span class="op">=</span> c <span class="op">*</span> r</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate time in minutes</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    time_hours <span class="op">=</span> distance <span class="op">/</span> avg_speed_kmh</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    time_minutes <span class="op">=</span> time_hours <span class="op">*</span> <span class="dv">60</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> time_minutes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure with specified size</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points and lines</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df_geo[<span class="st">'longitud'</span>].head(<span class="dv">20</span>), df_geo[<span class="st">'latitud'</span>].head(<span class="dv">20</span>), <span class="st">'ro-'</span>, markersize<span class="op">=</span><span class="dv">8</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add point labels</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df_geo.head(<span class="dv">20</span>).iterrows():</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    plt.annotate(<span class="ss">f'Point </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                (row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>]),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add time estimates between consecutive points</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(df_geo.head(<span class="dv">20</span>))<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        next_row <span class="op">=</span> df_geo.iloc[i<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        time <span class="op">=</span> estimate_time_distance(row[<span class="st">'latitud'</span>], row[<span class="st">'longitud'</span>],</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                   next_row[<span class="st">'latitud'</span>], next_row[<span class="st">'longitud'</span>])</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate midpoint for time label</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        mid_lon <span class="op">=</span> (row[<span class="st">'longitud'</span>] <span class="op">+</span> next_row[<span class="st">'longitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        mid_lat <span class="op">=</span> (row[<span class="st">'latitud'</span>] <span class="op">+</span> next_row[<span class="st">'latitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add time label</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        plt.annotate(<span class="ss">f'</span><span class="sc">{</span>time<span class="sc">:.1f}</span><span class="ss"> min'</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                    (mid_lon, mid_lat),</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                    xytext<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                    ha<span class="op">=</span><span class="st">'center'</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                    bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>))</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Delivery Route with Estimated Travel Times (First 20 Points)'</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matematica_discreta_tp_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-10" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure with specified size</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points and lines</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df_geo[<span class="st">'longitud'</span>].head(<span class="dv">20</span>), df_geo[<span class="st">'latitud'</span>].head(<span class="dv">20</span>), <span class="st">'bo-'</span>, markersize<span class="op">=</span><span class="dv">8</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add point labels and actual travel times</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df_geo.head(<span class="dv">20</span>).iterrows():</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    plt.annotate(<span class="ss">f'Point </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                (row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>]),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add actual time differences between consecutive points</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(df_geo.head(<span class="dv">20</span>))<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        next_row <span class="op">=</span> df_geo.iloc[i<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate time difference in minutes between fin_visita timestamps</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        time_diff <span class="op">=</span> (pd.to_datetime(next_row[<span class="st">'fin_visita'</span>]) <span class="op">-</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                    pd.to_datetime(row[<span class="st">'fin_visita'</span>])).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate midpoint for time label</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        mid_lon <span class="op">=</span> (row[<span class="st">'longitud'</span>] <span class="op">+</span> next_row[<span class="st">'longitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        mid_lat <span class="op">=</span> (row[<span class="st">'latitud'</span>] <span class="op">+</span> next_row[<span class="st">'latitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add time label</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        plt.annotate(<span class="ss">f'</span><span class="sc">{</span>time_diff<span class="sc">:.1f}</span><span class="ss"> min'</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                    (mid_lon, mid_lat),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                    xytext<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>,</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>                    ha<span class="op">=</span><span class="st">'center'</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                    bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>))</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Delivery Route with Actual Travel Times (First 20 Points)'</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -517,128 +517,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> estimate_time_distance(lat1, lon1, lat2, lon2, avg_speed_kmh<span class="op">=</span><span class="dv">30</span>):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Estimates travel time between two points given by latitude/longitude coordinates.</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    -----------</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    lat1, lon1 : float</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">        Latitude and longitude of starting point</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    lat2, lon2 : float </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">        Latitude and longitude of ending point</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">    avg_speed_kmh : float</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Average speed in kilometers per hour (default 30 km/h for urban areas)</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">    --------</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">    float</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">        Estimated travel time in minutes</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert latitude/longitude to radians</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    lat1, lon1 <span class="op">=</span> np.radians(lat1), np.radians(lon1)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    lat2, lon2 <span class="op">=</span> np.radians(lat2), np.radians(lon2)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Haversine formula</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    dlat <span class="op">=</span> lat2 <span class="op">-</span> lat1</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    dlon <span class="op">=</span> lon2 <span class="op">-</span> lon1</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> np.sin(dlat<span class="op">/</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> np.cos(lat1) <span class="op">*</span> np.cos(lat2) <span class="op">*</span> np.sin(dlon<span class="op">/</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.arcsin(np.sqrt(a))</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Earth's radius in kilometers</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="dv">6371</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate distance in kilometers</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    distance <span class="op">=</span> c <span class="op">*</span> r</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate time in minutes</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    time_hours <span class="op">=</span> distance <span class="op">/</span> avg_speed_kmh</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    time_minutes <span class="op">=</span> time_hours <span class="op">*</span> <span class="dv">60</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> time_minutes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-8" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure with specified size</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points and lines</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df_geo[<span class="st">'longitud'</span>].head(<span class="dv">20</span>), df_geo[<span class="st">'latitud'</span>].head(<span class="dv">20</span>), <span class="st">'ro-'</span>, markersize<span class="op">=</span><span class="dv">8</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add point labels</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df_geo.head(<span class="dv">20</span>).iterrows():</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    plt.annotate(<span class="ss">f'Point </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                (row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>]),</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add time estimates between consecutive points</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(df_geo.head(<span class="dv">20</span>))<span class="op">-</span><span class="dv">1</span>:</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        next_row <span class="op">=</span> df_geo.iloc[i<span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        time <span class="op">=</span> estimate_time_distance(row[<span class="st">'latitud'</span>], row[<span class="st">'longitud'</span>],</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                                   next_row[<span class="st">'latitud'</span>], next_row[<span class="st">'longitud'</span>])</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate midpoint for time label</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        mid_lon <span class="op">=</span> (row[<span class="st">'longitud'</span>] <span class="op">+</span> next_row[<span class="st">'longitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        mid_lat <span class="op">=</span> (row[<span class="st">'latitud'</span>] <span class="op">+</span> next_row[<span class="st">'latitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add time label</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        plt.annotate(<span class="ss">f'</span><span class="sc">{</span>time<span class="sc">:.1f}</span><span class="ss"> min'</span>,</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                    (mid_lon, mid_lat),</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                    xytext<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>,</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                    ha<span class="op">=</span><span class="st">'center'</span>,</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>                    bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>))</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Delivery Route with Estimated Travel Times (First 20 Points)'</span>)</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure with specified size</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color map for clients 20 and 70</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'red'</span> <span class="cf">if</span> cliente <span class="op">==</span> <span class="dv">20</span> <span class="cf">else</span> <span class="st">'blue'</span> <span class="cf">if</span> cliente <span class="op">==</span> <span class="dv">70</span> <span class="cf">else</span> <span class="st">'gray'</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> cliente <span class="kw">in</span> df_geo[<span class="st">'cliente'</span>].head(<span class="dv">20</span>)]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with points colored by cliente</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> plt.scatter(df_geo[<span class="st">'longitud'</span>].head(<span class="dv">20</span>), df_geo[<span class="st">'latitud'</span>].head(<span class="dv">20</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                     c<span class="op">=</span>colors,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                     s<span class="op">=</span><span class="dv">100</span>)  <span class="co"># Size of points</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, markerfacecolor<span class="op">=</span><span class="st">'red'</span>, </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                         label<span class="op">=</span><span class="st">'Cliente 20'</span>, markersize<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                  Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, markerfacecolor<span class="op">=</span><span class="st">'blue'</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                         label<span class="op">=</span><span class="st">'Cliente 70'</span>, markersize<span class="op">=</span><span class="dv">10</span>)]</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>legend_elements)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Delivery Points for Clients 20 and 70 (First 20 Points)'</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="matematica_discreta_tp_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="matematica_discreta_tp_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure with specified size</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot points and lines</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df_geo[<span class="st">'longitud'</span>].head(<span class="dv">20</span>), df_geo[<span class="st">'latitud'</span>].head(<span class="dv">20</span>), <span class="st">'bo-'</span>, markersize<span class="op">=</span><span class="dv">8</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add point labels and actual travel times</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df_geo.head(<span class="dv">20</span>).iterrows():</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    plt.annotate(<span class="ss">f'Point </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                (row[<span class="st">'longitud'</span>], row[<span class="st">'latitud'</span>]),</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add actual time differences between consecutive points</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(df_geo.head(<span class="dv">20</span>))<span class="op">-</span><span class="dv">1</span>:</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        next_row <span class="op">=</span> df_geo.iloc[i<span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate time difference in minutes between fin_visita timestamps</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        time_diff <span class="op">=</span> (pd.to_datetime(next_row[<span class="st">'fin_visita'</span>]) <span class="op">-</span> </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                    pd.to_datetime(row[<span class="st">'fin_visita'</span>])).total_seconds() <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate midpoint for time label</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        mid_lon <span class="op">=</span> (row[<span class="st">'longitud'</span>] <span class="op">+</span> next_row[<span class="st">'longitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        mid_lat <span class="op">=</span> (row[<span class="st">'latitud'</span>] <span class="op">+</span> next_row[<span class="st">'latitud'</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add time label</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        plt.annotate(<span class="ss">f'</span><span class="sc">{</span>time_diff<span class="sc">:.1f}</span><span class="ss"> min'</span>,</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                    (mid_lon, mid_lat),</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                    xytext<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>,</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                    ha<span class="op">=</span><span class="st">'center'</span>,</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>                    bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>))</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Delivery Route with Actual Travel Times (First 20 Points)'</span>)</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-12" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_muestra <span class="op">=</span> df_geo.head(<span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign_deliveries_to_drivers(df_muestra, velocidad_promedio<span class="op">=</span><span class="fl">30.0</span>, tiempo_minimo_separacion<span class="op">=</span><span class="dv">5</span>, factor_desvio<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Asigna entregas a repartidores usando coloreo de grafos.</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">        df_muestra: DataFrame con las entregas a procesar</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">        velocidad_promedio: Velocidad promedio de los repartidores en km/h</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">        tiempo_minimo_separacion: Tiempo mínimo entre entregas en minutos</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">        factor_desvio: Factor de desvío permitido entre tiempo estimado y real</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">        dict: Diccionario con las asignaciones {id_repartidor: [lista_de_entregas]}</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Diccionario que almacenará las asignaciones finales de entregas a repartidores</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    asignaciones_repartidores <span class="op">=</span> {}</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Procesar las entregas agrupadas por cliente</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cliente, grupo <span class="kw">in</span> df_muestra.groupby(<span class="st">'cliente'</span>):</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Resetear índices para facilitar el procesamiento</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        entregas <span class="op">=</span> grupo.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(entregas)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Crear un grafo vacío para modelar conflictos entre entregas</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> nx.Graph()</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Añadir un nodo por cada entrega del cliente</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx <span class="kw">in</span> entregas.index:</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>            G.add_node(idx)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Analizar pares de entregas para detectar conflictos</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, j <span class="kw">in</span> combinations(entregas.index, <span class="dv">2</span>):</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>            d1 <span class="op">=</span> entregas.loc[i]  <span class="co"># Primera entrega del par</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>            d2 <span class="op">=</span> entregas.loc[j]  <span class="co"># Segunda entrega del par</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Asegurar que los tiempos de entrega estén en formato datetime</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>            d1_fin <span class="op">=</span> pd.to_datetime(d1[<span class="st">'fin_visita'</span>]) <span class="cf">if</span> <span class="bu">isinstance</span>(d1[<span class="st">'fin_visita'</span>], <span class="bu">str</span>) <span class="cf">else</span> d1[<span class="st">'fin_visita'</span>]</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>            d2_fin <span class="op">=</span> pd.to_datetime(d2[<span class="st">'fin_visita'</span>]) <span class="cf">if</span> <span class="bu">isinstance</span>(d2[<span class="st">'fin_visita'</span>], <span class="bu">str</span>) <span class="cf">else</span> d2[<span class="st">'fin_visita'</span>]</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calcular la diferencia temporal entre entregas</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>            diferencia_tiempo_min <span class="op">=</span> <span class="bu">abs</span>((d2_fin <span class="op">-</span> d1_fin).total_seconds()) <span class="op">/</span> <span class="fl">60.0</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>            diferencia_tiempo_horas <span class="op">=</span> diferencia_tiempo_min <span class="op">/</span> <span class="fl">60.0</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calcular la distancia física entre los puntos de entrega</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>            distancia <span class="op">=</span> estimate_time_distance(d1[<span class="st">'longitud'</span>], d1[<span class="st">'latitud'</span>], d2[<span class="st">'longitud'</span>], d2[<span class="st">'latitud'</span>])</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calcular el tiempo mínimo necesario para viajar entre puntos</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>            tiempo_viaje <span class="op">=</span> distancia <span class="op">/</span> velocidad_promedio</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Determinar si existe un conflicto entre las entregas</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> diferencia_tiempo_min <span class="op">&lt;=</span> tiempo_minimo_separacion:</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Entregas muy cercanas en tiempo: asignar al mismo repartidor</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>                <span class="cf">pass</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> diferencia_tiempo_horas <span class="op">&lt;</span> tiempo_viaje <span class="op">*</span> factor_desvio:</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>                <span class="co"># El tiempo real es mucho menor al tiempo estimado necesario</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Añadir una arista al grafo indicando que no pueden ser realizadas por el mismo repartidor</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>                G.add_edge(i, j)</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Aplicar algoritmo de coloreo de grafos para asignar repartidores</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Cada color representa un repartidor diferente</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>        coloreo <span class="op">=</span> nx.coloring.greedy_color(G, strategy<span class="op">=</span><span class="st">'largest_first'</span>)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Distribuir las entregas entre los repartidores según el coloreo</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, color <span class="kw">in</span> coloreo.items():</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>            id_repartidor <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>cliente<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> id_repartidor <span class="kw">not</span> <span class="kw">in</span> asignaciones_repartidores:</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>                asignaciones_repartidores[id_repartidor] <span class="op">=</span> []</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>            asignaciones_repartidores[id_repartidor].append(entregas.loc[idx])</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> asignaciones_repartidores</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar la asignación</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>asignaciones <span class="op">=</span> assign_deliveries_to_drivers(df_muestra)</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizar las asignaciones en un mapa</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>colores <span class="op">=</span> <span class="bu">list</span>(mcolors.TABLEAU_COLORS.keys())</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar las entregas de cada repartidor con un color distinto</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (repartidor, entregas_repartidor) <span class="kw">in</span> <span class="bu">enumerate</span>(asignaciones.items()):</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    entregas_df <span class="op">=</span> pd.DataFrame(entregas_repartidor)</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>    latitudes <span class="op">=</span> entregas_df[<span class="st">'latitud'</span>]</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>    longitudes <span class="op">=</span> entregas_df[<span class="st">'longitud'</span>]</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colores[idx <span class="op">%</span> <span class="bu">len</span>(colores)]</span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>    plt.scatter(longitudes, latitudes, c<span class="op">=</span>color, label<span class="op">=</span>repartidor)</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Configurar detalles del gráfico</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitud'</span>)</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitud'</span>)</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Asignación de Entregas a Repartidores'</span>)</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -647,31 +653,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new figure with specified size</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color map for clients 20 and 70</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'red'</span> <span class="cf">if</span> cliente <span class="op">==</span> <span class="dv">20</span> <span class="cf">else</span> <span class="st">'blue'</span> <span class="cf">if</span> cliente <span class="op">==</span> <span class="dv">70</span> <span class="cf">else</span> <span class="st">'gray'</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> cliente <span class="kw">in</span> df_geo[<span class="st">'cliente'</span>].head(<span class="dv">20</span>)]</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with points colored by cliente</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> plt.scatter(df_geo[<span class="st">'longitud'</span>].head(<span class="dv">20</span>), df_geo[<span class="st">'latitud'</span>].head(<span class="dv">20</span>),</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                     c<span class="op">=</span>colors,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                     s<span class="op">=</span><span class="dv">100</span>)  <span class="co"># Size of points</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, markerfacecolor<span class="op">=</span><span class="st">'red'</span>, </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                         label<span class="op">=</span><span class="st">'Cliente 20'</span>, markersize<span class="op">=</span><span class="dv">10</span>),</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                  Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, markerfacecolor<span class="op">=</span><span class="st">'blue'</span>,</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                         label<span class="op">=</span><span class="st">'Cliente 70'</span>, markersize<span class="op">=</span><span class="dv">10</span>)]</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>legend_elements)</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Delivery Points for Clients 20 and 70 (First 20 Points)'</span>)</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitude'</span>)</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitude'</span>)</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-14" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una figura con subplots verticales</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>num_repartidores <span class="op">=</span> <span class="bu">len</span>(asignaciones)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(num_repartidores, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span><span class="op">*</span>num_repartidores))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar las entregas de cada repartidor en su propio subplot</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (repartidor, entregas_repartidor) <span class="kw">in</span> <span class="bu">enumerate</span>(asignaciones.items()):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    entregas_df <span class="op">=</span> pd.DataFrame(entregas_repartidor)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ordenar entregas cronológicamente</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    entregas_df <span class="op">=</span> entregas_df.sort_values(<span class="st">'fin_visita'</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener coordenadas</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    latitudes <span class="op">=</span> entregas_df[<span class="st">'latitud'</span>]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    longitudes <span class="op">=</span> entregas_df[<span class="st">'longitud'</span>]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    fin_visitas <span class="op">=</span> entregas_df[<span class="st">'fin_visita'</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Graficar puntos y líneas</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colores[idx <span class="op">%</span> <span class="bu">len</span>(colores)]</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    axs[idx].scatter(longitudes, latitudes, c<span class="op">=</span>color, s<span class="op">=</span><span class="dv">100</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Conectar puntos con líneas según orden cronológico</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    axs[idx].plot(longitudes, latitudes, c<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.5</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, zorder<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Configurar detalles del subplot</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    axs[idx].set_title(<span class="ss">f'Repartidor </span><span class="sc">{</span>repartidor<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    axs[idx].set_xlabel(<span class="st">'Longitud'</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    axs[idx].set_ylabel(<span class="st">'Latitud'</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    axs[idx].grid(<span class="va">True</span>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Agregar números y tiempos a los puntos para mostrar el orden</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (lon, lat, tiempo) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(longitudes, latitudes, fin_visitas)):</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Convertir a datetime si es string</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(tiempo, <span class="bu">str</span>):</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>            tiempo <span class="op">=</span> pd.to_datetime(tiempo)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        tiempo_str <span class="op">=</span> tiempo.strftime(<span class="st">'%H:%M'</span>)</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        axs[idx].annotate(<span class="ss">f'</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>tiempo_str<span class="sc">}</span><span class="ss">'</span>, (lon, lat), xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), </span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>                         textcoords<span class="op">=</span><span class="st">'offset points'</span>)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Agregar diferencias de tiempo y tiempo estimado en el medio de las líneas</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(entregas_df)<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        tiempo1 <span class="op">=</span> pd.to_datetime(fin_visitas.iloc[i])</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        tiempo2 <span class="op">=</span> pd.to_datetime(fin_visitas.iloc[i<span class="op">+</span><span class="dv">1</span>])</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>        diferencia <span class="op">=</span> (tiempo2 <span class="op">-</span> tiempo1).total_seconds() <span class="op">/</span> <span class="dv">60</span>  <span class="co"># Diferencia en minutos</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calcular punto medio entre entregas</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>        lon_mid <span class="op">=</span> (longitudes.iloc[i] <span class="op">+</span> longitudes.iloc[i<span class="op">+</span><span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>        lat_mid <span class="op">=</span> (latitudes.iloc[i] <span class="op">+</span> latitudes.iloc[i<span class="op">+</span><span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calcular tiempo estimado usando haversine</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        tiempo_estimado <span class="op">=</span> estimate_time_distance(</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>            longitudes.iloc[i], latitudes.iloc[i],</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>            longitudes.iloc[i<span class="op">+</span><span class="dv">1</span>], latitudes.iloc[i<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Agregar anotación con la diferencia de tiempo y tiempo estimado</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>        axs[idx].annotate(<span class="ss">f'Real: </span><span class="sc">{</span>diferencia<span class="sc">:.1f}</span><span class="ss"> min</span><span class="ch">\n</span><span class="ss">Est: </span><span class="sc">{</span>tiempo_estimado<span class="sc">:.1f}</span><span class="ss"> min'</span>, </span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>                         (lon_mid, lat_mid),</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>                         bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>),</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>                         ha<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -680,181 +723,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<section id="aplicación-en-la-logística" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-en-la-logística">Aplicación en la logística</h3>
+<p>Al utilizar la coloración de grafos en las rutas de entrega, se pueden identificar patrones y optimizar la asignación de entregas a repartidores, considerando factores como la distancia y el orden cronológico de las entregas.</p>
+</section>
+</section>
+<section id="resultados" class="level2">
+<h2 class="anchored" data-anchor-id="resultados">Resultados</h2>
+<p>Se desarrolló un programa en Python que: * Procesa datos geográficos y temporales de las entregas. * Construye un grafo donde los nodos representan puntos de entrega y las aristas conectan entregas cercanas en tiempo y espacio. * Aplica algoritmos de coloración para asignar rutas a repartidores. * Visualiza las rutas mediante gráficos interactivos, facilitando el análisis y la interpretación de los datos.</p>
+<p>Los gráficos generados permiten observar claramente las rutas asignadas a cada repartidor, identificadas por diferentes colores, y analizar la eficiencia de las mismas.</p>
+</section>
+<section id="apéndice" class="level2">
+<h2 class="anchored" data-anchor-id="apéndice">Apéndice</h2>
+<p>A continuación, se presenta el código que implementa las técnicas descritas:</p>
 <p>Condiciones 1. Entregas unicas por cliente 2. Tiempo y distancia entre entregas 3. Tiempo estimado no puede ser menor a tiempo real ya que el tiempo de entrega no se toma en cuenta.</p>
-<div id="cell-12" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_muestra <span class="op">=</span> df_geo.head(<span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-13" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign_deliveries_to_drivers(df_muestra, velocidad_promedio<span class="op">=</span><span class="fl">30.0</span>, tiempo_minimo_separacion<span class="op">=</span><span class="dv">5</span>, factor_desvio<span class="op">=</span><span class="fl">0.5</span>):</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Asigna entregas a repartidores usando coloreo de grafos.</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">        df_muestra: DataFrame con las entregas a procesar</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">        velocidad_promedio: Velocidad promedio de los repartidores en km/h</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">        tiempo_minimo_separacion: Tiempo mínimo entre entregas en minutos</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">        factor_desvio: Factor de desvío permitido entre tiempo estimado y real</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">        dict: Diccionario con las asignaciones {id_repartidor: [lista_de_entregas]}</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Diccionario que almacenará las asignaciones finales de entregas a repartidores</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    asignaciones_repartidores <span class="op">=</span> {}</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Procesar las entregas agrupadas por cliente</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cliente, grupo <span class="kw">in</span> df_muestra.groupby(<span class="st">'cliente'</span>):</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Resetear índices para facilitar el procesamiento</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        entregas <span class="op">=</span> grupo.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(entregas)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Crear un grafo vacío para modelar conflictos entre entregas</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> nx.Graph()</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Añadir un nodo por cada entrega del cliente</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx <span class="kw">in</span> entregas.index:</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>            G.add_node(idx)</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Analizar pares de entregas para detectar conflictos</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, j <span class="kw">in</span> combinations(entregas.index, <span class="dv">2</span>):</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>            d1 <span class="op">=</span> entregas.loc[i]  <span class="co"># Primera entrega del par</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>            d2 <span class="op">=</span> entregas.loc[j]  <span class="co"># Segunda entrega del par</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Asegurar que los tiempos de entrega estén en formato datetime</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>            d1_fin <span class="op">=</span> pd.to_datetime(d1[<span class="st">'fin_visita'</span>]) <span class="cf">if</span> <span class="bu">isinstance</span>(d1[<span class="st">'fin_visita'</span>], <span class="bu">str</span>) <span class="cf">else</span> d1[<span class="st">'fin_visita'</span>]</span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>            d2_fin <span class="op">=</span> pd.to_datetime(d2[<span class="st">'fin_visita'</span>]) <span class="cf">if</span> <span class="bu">isinstance</span>(d2[<span class="st">'fin_visita'</span>], <span class="bu">str</span>) <span class="cf">else</span> d2[<span class="st">'fin_visita'</span>]</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calcular la diferencia temporal entre entregas</span></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>            diferencia_tiempo_min <span class="op">=</span> <span class="bu">abs</span>((d2_fin <span class="op">-</span> d1_fin).total_seconds()) <span class="op">/</span> <span class="fl">60.0</span></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>            diferencia_tiempo_horas <span class="op">=</span> diferencia_tiempo_min <span class="op">/</span> <span class="fl">60.0</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calcular la distancia física entre los puntos de entrega</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>            distancia <span class="op">=</span> estimate_time_distance(d1[<span class="st">'longitud'</span>], d1[<span class="st">'latitud'</span>], d2[<span class="st">'longitud'</span>], d2[<span class="st">'latitud'</span>])</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calcular el tiempo mínimo necesario para viajar entre puntos</span></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>            tiempo_viaje <span class="op">=</span> distancia <span class="op">/</span> velocidad_promedio</span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Determinar si existe un conflicto entre las entregas</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> diferencia_tiempo_min <span class="op">&lt;=</span> tiempo_minimo_separacion:</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Entregas muy cercanas en tiempo: asignar al mismo repartidor</span></span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>                <span class="cf">pass</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> diferencia_tiempo_horas <span class="op">&lt;</span> tiempo_viaje <span class="op">*</span> factor_desvio:</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>                <span class="co"># El tiempo real es mucho menor al tiempo estimado necesario</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Añadir una arista al grafo indicando que no pueden ser realizadas por el mismo repartidor</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>                G.add_edge(i, j)</span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Aplicar algoritmo de coloreo de grafos para asignar repartidores</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Cada color representa un repartidor diferente</span></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>        coloreo <span class="op">=</span> nx.coloring.greedy_color(G, strategy<span class="op">=</span><span class="st">'largest_first'</span>)</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Distribuir las entregas entre los repartidores según el coloreo</span></span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, color <span class="kw">in</span> coloreo.items():</span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>            id_repartidor <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>cliente<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">'</span></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> id_repartidor <span class="kw">not</span> <span class="kw">in</span> asignaciones_repartidores:</span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>                asignaciones_repartidores[id_repartidor] <span class="op">=</span> []</span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>            asignaciones_repartidores[id_repartidor].append(entregas.loc[idx])</span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> asignaciones_repartidores</span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar la asignación</span></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>asignaciones <span class="op">=</span> assign_deliveries_to_drivers(df_muestra)</span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizar las asignaciones en un mapa</span></span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>colores <span class="op">=</span> <span class="bu">list</span>(mcolors.TABLEAU_COLORS.keys())</span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar las entregas de cada repartidor con un color distinto</span></span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (repartidor, entregas_repartidor) <span class="kw">in</span> <span class="bu">enumerate</span>(asignaciones.items()):</span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>    entregas_df <span class="op">=</span> pd.DataFrame(entregas_repartidor)</span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    latitudes <span class="op">=</span> entregas_df[<span class="st">'latitud'</span>]</span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>    longitudes <span class="op">=</span> entregas_df[<span class="st">'longitud'</span>]</span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colores[idx <span class="op">%</span> <span class="bu">len</span>(colores)]</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>    plt.scatter(longitudes, latitudes, c<span class="op">=</span>color, label<span class="op">=</span>repartidor)</span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Configurar detalles del gráfico</span></span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Longitud'</span>)</span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Latitud'</span>)</span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Asignación de Entregas a Repartidores'</span>)</span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="matematica_discreta_tp_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-14" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una figura con subplots verticales</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>num_repartidores <span class="op">=</span> <span class="bu">len</span>(asignaciones)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(num_repartidores, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span><span class="op">*</span>num_repartidores))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar las entregas de cada repartidor en su propio subplot</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (repartidor, entregas_repartidor) <span class="kw">in</span> <span class="bu">enumerate</span>(asignaciones.items()):</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    entregas_df <span class="op">=</span> pd.DataFrame(entregas_repartidor)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ordenar entregas cronológicamente</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    entregas_df <span class="op">=</span> entregas_df.sort_values(<span class="st">'fin_visita'</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener coordenadas</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    latitudes <span class="op">=</span> entregas_df[<span class="st">'latitud'</span>]</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    longitudes <span class="op">=</span> entregas_df[<span class="st">'longitud'</span>]</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    fin_visitas <span class="op">=</span> entregas_df[<span class="st">'fin_visita'</span>]</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Graficar puntos y líneas</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> colores[idx <span class="op">%</span> <span class="bu">len</span>(colores)]</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    axs[idx].scatter(longitudes, latitudes, c<span class="op">=</span>color, s<span class="op">=</span><span class="dv">100</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Conectar puntos con líneas según orden cronológico</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    axs[idx].plot(longitudes, latitudes, c<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.5</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, zorder<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Configurar detalles del subplot</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    axs[idx].set_title(<span class="ss">f'Repartidor </span><span class="sc">{</span>repartidor<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    axs[idx].set_xlabel(<span class="st">'Longitud'</span>)</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    axs[idx].set_ylabel(<span class="st">'Latitud'</span>)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    axs[idx].grid(<span class="va">True</span>)</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Agregar números y tiempos a los puntos para mostrar el orden</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (lon, lat, tiempo) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(longitudes, latitudes, fin_visitas)):</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Convertir a datetime si es string</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">isinstance</span>(tiempo, <span class="bu">str</span>):</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            tiempo <span class="op">=</span> pd.to_datetime(tiempo)</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        tiempo_str <span class="op">=</span> tiempo.strftime(<span class="st">'%H:%M'</span>)</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        axs[idx].annotate(<span class="ss">f'</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>tiempo_str<span class="sc">}</span><span class="ss">'</span>, (lon, lat), xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), </span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                         textcoords<span class="op">=</span><span class="st">'offset points'</span>)</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Agregar diferencias de tiempo y tiempo estimado en el medio de las líneas</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(entregas_df)<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        tiempo1 <span class="op">=</span> pd.to_datetime(fin_visitas.iloc[i])</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        tiempo2 <span class="op">=</span> pd.to_datetime(fin_visitas.iloc[i<span class="op">+</span><span class="dv">1</span>])</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        diferencia <span class="op">=</span> (tiempo2 <span class="op">-</span> tiempo1).total_seconds() <span class="op">/</span> <span class="dv">60</span>  <span class="co"># Diferencia en minutos</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calcular punto medio entre entregas</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        lon_mid <span class="op">=</span> (longitudes.iloc[i] <span class="op">+</span> longitudes.iloc[i<span class="op">+</span><span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>        lat_mid <span class="op">=</span> (latitudes.iloc[i] <span class="op">+</span> latitudes.iloc[i<span class="op">+</span><span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calcular tiempo estimado usando haversine</span></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>        tiempo_estimado <span class="op">=</span> estimate_time_distance(</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>            longitudes.iloc[i], latitudes.iloc[i],</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>            longitudes.iloc[i<span class="op">+</span><span class="dv">1</span>], latitudes.iloc[i<span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Agregar anotación con la diferencia de tiempo y tiempo estimado</span></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>        axs[idx].annotate(<span class="ss">f'Real: </span><span class="sc">{</span>diferencia<span class="sc">:.1f}</span><span class="ss"> min</span><span class="ch">\n</span><span class="ss">Est: </span><span class="sc">{</span>tiempo_estimado<span class="sc">:.1f}</span><span class="ss"> min'</span>, </span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>                         (lon_mid, lat_mid),</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                         bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'white'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>),</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                         ha<span class="op">=</span><span class="st">'center'</span>)</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="matematica_discreta_tp_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
+</section>
 
 </main>
 <!-- /main column -->
